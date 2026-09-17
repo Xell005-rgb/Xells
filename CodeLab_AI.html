@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CodeLab AI — Belajar Coding Kreatif</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:#0b1020;color:#eef2ff}
+:root{--card:#121a2e;--card2:#18223a;--text:#eef2ff;--muted:#9aa8c7;--accent:#7c5cff;--accent2:#19d3ae}
+button,input,textarea,select{font:inherit}button{cursor:pointer;border:0}
+.app{display:flex;min-height:100vh}.side{width:245px;background:#0e1528;border-right:1px solid #26314b;padding:22px 15px;position:fixed;inset:0 auto 0 0}
+.logo{font-size:22px;font-weight:800;margin:5px 10px 28px}.logo span{color:#8b72ff}
+.nav button{width:100%;background:transparent;color:#aeb9d4;padding:13px 12px;border-radius:12px;text-align:left;margin:3px 0}
+.nav button:hover,.nav button.active{background:#1b2743;color:white}.nav small{display:block;color:#65718e;padding:20px 10px 5px}
+.main{margin-left:245px;width:calc(100% - 245px);padding:25px;max-width:1500px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px}
+.badge{background:#18233d;border:1px solid #293758;padding:8px 12px;border-radius:20px;color:#cbd5ff}
+.hero{background:linear-gradient(135deg,#171e3b,#20204a);border:1px solid #303b61;border-radius:22px;padding:30px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;width:220px;height:220px;border-radius:50%;background:#7c5cff33;right:-60px;top:-70px;filter:blur(10px)}
+.hero h1{font-size:36px;margin:0 0 10px}.hero p{color:#aeb9d4;max-width:700px}.btn{background:var(--accent);color:white;padding:11px 16px;border-radius:11px;font-weight:700}.btn.alt{background:#22304e}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-top:18px}
+.card{background:var(--card);border:1px solid #26314b;border-radius:17px;padding:19px}.card h3{margin:8px 0}.muted{color:var(--muted);font-size:14px}.icon{font-size:28px}.progress{height:7px;background:#26314b;border-radius:10px;overflow:hidden}.progress i{display:block;height:100%;background:linear-gradient(90deg,#7c5cff,#19d3ae);width:60%}
+.section{display:none}.section.active{display:block}.title{font-size:27px;margin:5px 0 18px}.lessons{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.lesson{background:var(--card);padding:20px;border:1px solid #26314b;border-radius:16px}.lesson button{margin-top:12px}
+.play{display:grid;grid-template-columns:1fr 1fr;gap:15px}.editor{background:#0a0f1d;border:1px solid #2b3651;border-radius:15px;overflow:hidden}.tabs{display:flex;background:#141d31}.tabs button{background:transparent;color:#aab5cf;padding:11px 15px}.tabs button.on{color:white;background:#222e4a}.editor textarea{width:100%;height:430px;background:#080c16;color:#d9e2ff;border:0;padding:18px;resize:vertical;font-family:Consolas,monospace;font-size:14px;outline:0}.preview{background:white;border-radius:15px;min-height:490px;overflow:hidden}.preview iframe{width:100%;height:490px;border:0}
+.chat{height:520px;background:var(--card);border:1px solid #293550;border-radius:18px;display:flex;flex-direction:column}.messages{padding:18px;overflow:auto;flex:1}.msg{max-width:80%;padding:11px 14px;border-radius:14px;margin:8px 0;background:#1c2944;color:#dce5ff}.msg.me{margin-left:auto;background:#654fe0}.chatbar{display:flex;padding:12px;border-top:1px solid #293550;gap:8px}.chatbar input{flex:1;background:#0c1324;color:white;border:1px solid #2b3651;border-radius:11px;padding:12px}
+.quiz{max-width:750px}.option{display:block;width:100%;text-align:left;background:#18233b;color:#dbe4ff;padding:14px;border-radius:11px;margin:9px 0;border:1px solid #293754}.option:hover{border-color:#7c5cff}.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.photo{min-height:180px;border-radius:16px;padding:20px;background:linear-gradient(135deg,#263a6a,#17213a);border:1px solid #344466}.animbox{height:260px;border-radius:18px;background:#111a30;display:grid;place-items:center;position:relative;overflow:hidden}.ball{width:55px;height:55px;background:#19d3ae;border-radius:50%;animation:bounce 1.4s infinite ease-in-out alternate}.ring{position:absolute;width:150px;height:150px;border:2px solid #7c5cff;border-radius:50%;animation:spin 5s linear infinite}@keyframes bounce{to{transform:translateY(70px) scale(1.1)}}@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:900px){.side{width:70px}.logo{font-size:0}.logo span{font-size:20px}.nav button{font-size:0;text-align:center}.nav button:first-letter{font-size:20px}.main{margin-left:70px;width:calc(100% - 70px)}.grid,.lessons,.photo-grid{grid-template-columns:1fr 1fr}.play{grid-template-columns:1fr}}
+@media(max-width:600px){.main{padding:14px}.hero h1{font-size:28px}.grid,.lessons,.photo-grid{grid-template-columns:1fr}.top{align-items:flex-start}.play{grid-template-columns:1fr}.editor textarea{height:300px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="side">
+<div class="logo">✦ Code<span>Lab</span> AI</div>
+<div class="nav">
+<button class="active" onclick="show('home',this)">🏠 Beranda</button>
+<button onclick="show('coding',this)">💻 Coding</button>
+<button onclick="show('ai',this)">🤖 AI Tutor</button>
+<button onclick="show('photo',this)">📸 Fotografi</button>
+<button onclick="show('anim',this)">🎨 Animasi</button>
+<button onclick="show('quiz',this)">🧠 Quiz</button>
+<button onclick="show('play',this)">🧪 Playground</button>
+<small>PROGRESS</small>
+<button onclick="show('home',this)">📊 Belajar: <b id="pct">0%</b></button>
+</div>
+</aside>
+
+<main class="main">
+<div class="top"><div><b>CodeLab AI</b><div class="muted">Belajar • Buat • Eksperimen</div></div><div class="badge">⚡ <span id="xp">0</span> XP</div></div>
+
+<section id="home" class="section active">
+<div class="hero"><h1>Belajar coding dengan cara seru 🚀</h1><p>Pelajari coding, fotografi, animasi, dan gunakan AI Tutor untuk membantu memahami materi.</p><button class="btn" onclick="show('coding')">Mulai Belajar →</button></div>
+<div class="grid">
+<div class="card"><div class="icon">💻</div><h3>Coding</h3><div class="muted">HTML, CSS & JavaScript</div></div>
+<div class="card"><div class="icon">🤖</div><h3>AI Tutor</h3><div class="muted">Tanya materi kapan saja</div></div>
+<div class="card"><div class="icon">📸</div><h3>Fotografi</h3><div class="muted">Komposisi & pencahayaan</div></div>
+<div class="card"><div class="icon">🎨</div><h3>Animasi</h3><div class="muted">Gerak & efek visual</div></div>
+</div>
+<div class="card" style="margin-top:18px"><h3>📊 Progress Belajar</h3><div class="progress"><i id="bar" style="width:0%"></i></div><p class="muted"><span id="done">0</span> materi selesai</p></div>
+</section>
+
+<section id="coding" class="section">
+<div class="title">💻 Belajar Coding</div><div class="lessons">
+<div class="lesson"><div class="icon">🌐</div><h3>HTML Dasar</h3><p class="muted">Buat struktur halaman web.</p><button class="btn" onclick="complete()">Pelajari</button></div>
+<div class="lesson"><div class="icon">🎨</div><h3>CSS Dasar</h3><p class="muted">Buat website menjadi menarik.</p><button class="btn" onclick="complete()">Pelajari</button></div>
+<div class="lesson"><div class="icon">⚡</div><h3>JavaScript</h3><p class="muted">Tambahkan interaksi dan logika.</p><button class="btn" onclick="complete()">Pelajari</button></div>
+</div>
+</section>
+
+<section id="ai" class="section">
+<div class="title">🤖 AI Tutor</div><div class="chat"><div class="messages" id="messages"><div class="msg">Halo! Aku AI Tutor CodeLab. Tanyakan sesuatu seperti <b>“Apa itu HTML?”</b> atau <b>“Cara membuat tombol?”</b></div></div><div class="chatbar"><input id="q" placeholder="Tanyakan tentang coding..." onkeydown="if(event.key==='Enter')ask()"><button class="btn" onclick="ask()">Kirim</button></div></div>
+</section>
+
+<section id="photo" class="section">
+<div class="title">📸 Belajar Fotografi</div><div class="photo-grid">
+<div class="photo"><h3>📐 Komposisi</h3><p>Gunakan rule of thirds untuk membantu menempatkan objek utama.</p></div>
+<div class="photo"><h3>☀️ Lighting</h3><p>Perhatikan arah dan kualitas cahaya sebelum mengambil foto.</p></div>
+<div class="photo"><h3>🎯 Fokus</h3><p>Tentukan objek utama agar perhatian penonton lebih jelas.</p></div>
+</div>
+</section>
+
+<section id="anim" class="section">
+<div class="title">🎨 Animasi</div><div class="card"><h3>CSS Animation Demo</h3><p class="muted">Contoh objek bergerak menggunakan CSS.</p><div class="animbox"><div class="ring"></div><div class="ball"></div></div></div>
+</section>
+
+<section id="quiz" class="section">
+<div class="title">🧠 Quiz Coding</div><div class="card quiz"><h3>Apa fungsi HTML?</h3><button class="option" onclick="answer(false)">Mengatur database</button><button class="option" onclick="answer(true)">Membuat struktur halaman web</button><button class="option" onclick="answer(false)">Mengedit foto</button><p id="result"></p></div>
+</section>
+
+<section id="play" class="section">
+<div class="title">🧪 Code Playground</div><div class="play"><div class="editor"><div class="tabs"><button class="on">HTML</button><button>CSS</button><button>JS</button></div><textarea id="code"><!DOCTYPE html>
+<html>
+<head>
+<style>
+body { font-family: Arial; text-align:center; padding:40px; }
+button { padding:12px 20px; border:0; border-radius:10px; background:#7c5cff; color:white; }
+</style>
+</head>
+<body>
+<h1>Halo CodeLab! 🚀</h1>
+<p>Edit kode ini lalu tekan Run.</p>
+<button onclick="alert('Berhasil!')">Klik Aku</button>
+</body>
+</html></textarea><div style="padding:10px"><button class="btn" onclick="runCode()">▶ Run Code</button></div></div><div class="preview"><iframe id="preview"></iframe></div></div>
+</section>
+</main></div>
+<script>
+let xp=0,done=0;
+function show(id,el){document.querySelectorAll('.section').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));if(el)el.classList.add('active')}
+function complete(){done++;xp+=20;update();alert('Materi selesai! +20 XP 🎉')}
+function update(){let p=Math.min(100,done*10);document.getElementById('xp').textContent=xp;document.getElementById('done').textContent=done;document.getElementById('pct').textContent=p+'%';document.getElementById('bar').style.width=p+'%'}
+function answer(ok){let r=document.getElementById('result');if(ok){r.textContent='✅ Benar! +10 XP';xp+=10;update()}else r.textContent='❌ Belum tepat, coba lagi!'}
+function ask(){let input=document.getElementById('q'),q=input.value.trim();if(!q)return;let m=document.getElementById('messages');m.innerHTML+=`<div class="msg me">${escapeHtml(q)}</div>`;let a=reply(q.toLowerCase());setTimeout(()=>{m.innerHTML+=`<div class="msg">${a}</div>`;m.scrollTop=m.scrollHeight},300);input.value=''}
+function reply(q){if(q.includes('html'))return 'HTML adalah bahasa markup untuk membuat struktur halaman web. Contohnya: &lt;h1&gt;Judul&lt;/h1&gt;.';if(q.includes('css'))return 'CSS digunakan untuk mengatur tampilan website, seperti warna, ukuran, jarak, dan layout.';if(q.includes('javascript')||q.includes('js'))return 'JavaScript digunakan untuk membuat website interaktif, misalnya tombol yang merespons klik.';if(q.includes('tombol'))return 'Kamu bisa membuat tombol dengan &lt;button&gt;Klik Aku&lt;/button&gt;, lalu gunakan CSS untuk mempercantik tampilannya.';return 'Coba tanyakan tentang HTML, CSS, JavaScript, atau cara membuat tombol. 🤖'}
+function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
+function runCode(){let code=document.getElementById('code').value;document.getElementById('preview').srcdoc=code;xp+=5;update()}
+runCode();
+</script>
+</body>
+</html>
